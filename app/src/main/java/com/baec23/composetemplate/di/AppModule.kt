@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.compose.DialogNavigator
-import com.baec23.composetemplate.service.NavService
 import com.baec23.composetemplate.service.SnackbarService
 import dagger.Module
 import dagger.Provides
@@ -23,12 +22,6 @@ object AppModule {
             navigatorProvider.addNavigator(ComposeNavigator())
             navigatorProvider.addNavigator(DialogNavigator())
         }
-
-    @Singleton
-    @Provides
-    fun provideNavService(navController: NavHostController) =
-        NavService(navController = navController)
-
     @Singleton
     @Provides
     fun provideSnackbarService() = SnackbarService()
