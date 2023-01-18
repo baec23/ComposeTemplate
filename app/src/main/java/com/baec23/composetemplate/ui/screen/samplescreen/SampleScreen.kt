@@ -1,14 +1,17 @@
 package com.baec23.composetemplate.ui.screen.samplescreen
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -18,12 +21,12 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import com.baec23.composetemplate.ui.comp.TimePicker
-import com.baec23.composetemplate.util.WrappingList
-import com.baec23.composetemplate.util.mutableWrappingListOf
 import com.baec23.ludwig.component.datepicker.DatePicker
 import com.baec23.ludwig.component.section.DisplaySection
+import com.baec23.ludwig.component.timepicker.TimePicker
+import com.baec23.ludwig.component.timepicker.TimePickerType
 import java.time.LocalDate
+import java.time.LocalTime
 
 const val sampleScreenRoute = "sample_screen_route"
 const val TAG = "SampleScreen"
@@ -64,10 +67,40 @@ fun SampleScreen(
         }
     }
     Column(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
+            .verticalScroll(state = rememberScrollState())
     ) {
-        DisplaySection(headerText = "Time Picker Test") {
-            TimePicker()
+        DisplaySection(headerText = "HH:MM:SS 12 Hour Spinner") {
+            var time by remember { mutableStateOf(LocalTime.now()) }
+            Text("Selected Time = $time")
+            TimePicker(
+                type = TimePickerType.HoursMinutesSeconds12Hour,
+                selectedTextColor = MaterialTheme.colorScheme.primary
+            ) {
+                time = it
+            }
+        }
+        DisplaySection(headerText = "HH:MM 12 Hour Spinner") {
+            var time by remember { mutableStateOf(LocalTime.now()) }
+            Text("Selected Time = $time")
+            TimePicker(type = TimePickerType.HoursMinutes12Hour) {
+                time = it
+            }
+        }
+        DisplaySection(headerText = "HH:MM:SS 24 Hour Spinner") {
+            var time by remember { mutableStateOf(LocalTime.now()) }
+            Text("Selected Time = $time")
+            TimePicker(type = TimePickerType.HoursMinutesSeconds24Hour) {
+                time = it
+            }
+        }
+        DisplaySection(headerText = "HH:MM 24 Hour Spinner") {
+            var time by remember { mutableStateOf(LocalTime.now()) }
+            Text("Selected Time = $time")
+            TimePicker(type = TimePickerType.HoursMinutes24Hour) {
+                time = it
+            }
         }
     }
 }
