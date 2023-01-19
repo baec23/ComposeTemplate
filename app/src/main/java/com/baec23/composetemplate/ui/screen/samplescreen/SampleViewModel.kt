@@ -23,7 +23,6 @@ class SampleViewModel @Inject constructor(
         }
     }
 }
-
 sealed class SampleUiEvent {
     object SampleButtonPressed : SampleUiEvent()
     object DatePickerDismissed : SampleUiEvent()

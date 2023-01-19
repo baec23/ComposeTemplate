@@ -28,8 +28,8 @@ import com.baec23.ludwig.component.timepicker.TimePickerType
 import java.time.LocalDate
 import java.time.LocalTime
 
-const val sampleScreenRoute = "sample_screen_route"
 const val TAG = "SampleScreen"
+const val sampleScreenRoute = "sample_screen_route"
 
 fun NavGraphBuilder.sampleScreen() {
     composable(route = sampleScreenRoute) {
@@ -41,66 +41,17 @@ fun NavController.navigateToSampleScreen(navOptions: NavOptions? = null) {
     this.navigate(route = sampleScreenRoute, navOptions = navOptions)
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SampleScreen(
     viewModel: SampleViewModel = hiltViewModel()
 ) {
-    var selectedDate by rememberSaveable { mutableStateOf(LocalDate.now()) }
-    var pickerDialogShown by rememberSaveable { mutableStateOf(false) }
-    var datePickerState = rememberDatePickerState()
-
-    if (pickerDialogShown) {
-        Dialog(onDismissRequest = { pickerDialogShown = false }) {
-
-            androidx.compose.material3.DatePicker(datePickerState = datePickerState)
-
-            DatePicker(
-                initialDate = selectedDate,
-                onDateSelectionFinalized = {
-                    selectedDate = it
-                    pickerDialogShown = false
-                },
-                onCancelled = { pickerDialogShown = false },
-                shouldFinalizeOnSelect = false,
-            )
-        }
-    }
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .verticalScroll(state = rememberScrollState())
     ) {
-        DisplaySection(headerText = "HH:MM:SS 12 Hour Spinner") {
-            var time by remember { mutableStateOf(LocalTime.now()) }
-            Text("Selected Time = $time")
-            TimePicker(
-                type = TimePickerType.HoursMinutesSeconds12Hour,
-                selectedTextColor = MaterialTheme.colorScheme.primary
-            ) {
-                time = it
-            }
-        }
-        DisplaySection(headerText = "HH:MM 12 Hour Spinner") {
-            var time by remember { mutableStateOf(LocalTime.now()) }
-            Text("Selected Time = $time")
-            TimePicker(type = TimePickerType.HoursMinutes12Hour) {
-                time = it
-            }
-        }
-        DisplaySection(headerText = "HH:MM:SS 24 Hour Spinner") {
-            var time by remember { mutableStateOf(LocalTime.now()) }
-            Text("Selected Time = $time")
-            TimePicker(type = TimePickerType.HoursMinutesSeconds24Hour) {
-                time = it
-            }
-        }
-        DisplaySection(headerText = "HH:MM 24 Hour Spinner") {
-            var time by remember { mutableStateOf(LocalTime.now()) }
-            Text("Selected Time = $time")
-            TimePicker(type = TimePickerType.HoursMinutes24Hour) {
-                time = it
-            }
+        repeat(20){
+            Text("Lalalalala", style=MaterialTheme.typography.displayMedium)
         }
     }
 }
