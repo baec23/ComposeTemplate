@@ -5,6 +5,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavHostController
+import com.baec23.composetemplate.service.NavigationService
 import com.baec23.composetemplate.service.SnackbarService
 import com.baec23.composetemplate.ui.comp.BottomNavigationItem
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AppViewModel @Inject constructor(
-    val navController: NavHostController,
+//    val navController: NavHostController,
+    val navigationService: NavigationService,
     snackbarService: SnackbarService,
 ) : ViewModel() {
     private val _currNavScreenRoute: MutableState<String?> = mutableStateOf(null)
@@ -23,16 +25,16 @@ class AppViewModel @Inject constructor(
     val currNavScreenRoute: State<String?> = _currNavScreenRoute
     fun onEvent(event: AppUiEvent) {
         when(event){
-            is AppUiEvent.BottomNavBarButtonPressed -> navController.navigate(event.item.route)
+            is AppUiEvent.BottomNavBarButtonPressed -> navigationService.navController.navigate(event.item.route)
         }
     }
-    init {
-        MainScope().launch {
-            navController.currentBackStackEntryFlow.collect{
-                _currNavScreenRoute.value = it.destination.route
-            }
-        }
-    }
+//    init {
+//        MainScope().launch {
+//            navController.currentBackStackEntryFlow.collect{
+//                _currNavScreenRoute.value = it.destination.route
+//            }
+//        }
+//    }
 }
 
 sealed class AppUiEvent {

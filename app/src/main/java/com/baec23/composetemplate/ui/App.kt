@@ -22,7 +22,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import com.baec23.composetemplate.ui.comp.BottomNavigationBar
 import com.baec23.composetemplate.ui.comp.BottomNavigationItem
-import com.baec23.composetemplate.ui.comp.CollapsingAppBar
 import com.baec23.composetemplate.ui.screen.first.firstScreen
 import com.baec23.composetemplate.ui.screen.first.firstScreenRoute
 import com.baec23.composetemplate.ui.screen.second.secondScreen
@@ -61,35 +60,23 @@ fun App(
         .nestedScroll(appBarScrollBehavior.nestedScrollConnection),
         snackbarHost = { SnackbarHost(hostState = viewModel.snackbarHostState.value) },
         topBar = {
-            CollapsingAppBar(scrollBehavior = appBarScrollBehavior)
         },
         bottomBar = {
             BottomNavigationBar(
                 modifier = Modifier.height(50.dp),
                 items = bottomNavigationItems,
-                currNavScreenRoute = viewModel.currNavScreenRoute.value,
+                currNavScreenRoute = viewModel.navigationService.currNavScreenRoute.value,
                 backgroundColor = Color.Unspecified,
                 onBottomNavigationItemPressed = {
-                    viewModel.onEvent(
-                        AppUiEvent.BottomNavBarButtonPressed(
-                            it
-                        )
-                    )
+                    viewModel.onEvent(AppUiEvent.BottomNavBarButtonPressed(it))
                 }
             )
         }) {
         Column(
             modifier = Modifier
                 .padding(it)
-                .padding(16.dp)
         ) {
-            NavHost(
-                navController = viewModel.navController, startDestination = firstScreenRoute
-            ) {
-                firstScreen()
-                secondScreen()
-                thirdScreen()
-            }
+            NavHost(navController = viewModel.navigationService.navController, graph = viewModel.navigationService.rootNavGraph)
         }
     }
 }
