@@ -89,5 +89,5 @@ dependencies {
 //    implementation 'androidx.core:core-splashscreen:1.0.0'
 
     //Ludwig
-    implementation 'com.github.baec23:ludwig:0.0.17'
+    implementation 'com.github.baec23:ludwig:0.0.20'
 }

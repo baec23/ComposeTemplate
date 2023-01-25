@@ -1,4 +1,4 @@
-package com.baec23.composetemplate.ui.screen.second
+package com.baec23.composetemplate.ui.screen.main.second
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

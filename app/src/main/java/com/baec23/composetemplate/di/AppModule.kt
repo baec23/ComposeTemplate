@@ -4,7 +4,8 @@ import android.content.Context
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.compose.DialogNavigator
-import com.baec23.composetemplate.service.NavigationService
+import com.baec23.composetemplate.navigation.NavService
+import com.baec23.composetemplate.repository.SampleItemRepository
 import com.baec23.composetemplate.service.SnackbarService
 import dagger.Module
 import dagger.Provides
@@ -25,8 +26,12 @@ object AppModule {
         }
     @Singleton
     @Provides
-    fun provideNavigationService(navController: NavHostController) = NavigationService(navController = navController)
+    fun provideNavigationService(navController: NavHostController) = NavService(navController = navController)
     @Singleton
     @Provides
     fun provideSnackbarService() = SnackbarService()
+
+    @Singleton
+    @Provides
+    fun provideSampleItemRepository() = SampleItemRepository()
 }
